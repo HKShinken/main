@@ -96,6 +96,9 @@ public class PhotoGrid {
                         + "<h4><a href=\"ADD_POST?user=" + appUser + "\">AGGIUNGI POST</a></h4>"
                         + "<h4><a href=\"TIMELINE?username=" + appUser + "\">TIMELINE</a></h4>"
                         + "<h4><a href=\"FEED?username=" + appUser + "\">IL TUO FEED</a></h4>"
+
+                        + "<a href=\"#\" onClick=\"if (confirm('Vuoi davvero cancellare il tuo account?') == true) { window.location.href = 'DELETE_ACCOUNT?username=" + appUser +"'}\"> <h4>CANCELLA ACCOUNT</h4></a>"
+
                         + "<input type=button value=\"LOGOUT\" onClick=\"window.location.href='LOGOUT?username=" + appUser + "'\">"
                         + "<hr size=\"3\" width=\"75%\" align=\"left\" noshade/>"
                         + "</div>"
