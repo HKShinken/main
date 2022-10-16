@@ -15,7 +15,7 @@ function main(params)
 	//parametri per query
 	var values = [params.username, params.username, params.username, params.username];
 
-	//cancellazione di tutti i riferimenti al post
+	//cancellazione di tutti i riferimenti all'utente
     var sql = " DELETE from sys.users where username = ?;"
               +"DELETE from sys.users_posts where username = ?;"
               +"DELETE from sys.users_post_actions where action_user = ?;"
