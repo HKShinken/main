@@ -17,7 +17,7 @@ function main(params)
 	var sqlSession = "select count(*) as cnt from user_session where username = ?";
 	
     //query che carica gli ultimi post di ciascun utente  
-    var sql = "SELECT post_id ,username ,thumbnail_imgb64 ,filtered_post_description ,ifnull(likes_list, '') likes_list ,ifnull(cnt, 0) AS cnt FROM (select * from ( select c.*, row_number() over (partition by username order by update_date desc ) rn from sys.users_posts c ) src where rn = 1) src LEFT JOIN ( SELECT post_id AS post_id_l ,GROUP_CONCAT(action_user) likes_list ,count(*) AS cnt FROM ( SELECT * FROM sys.users_post_actions WHERE action_type = 'L' ORDER BY insert_date DESC ) src GROUP BY post_id ) detail ON src.post_id = detail.post_id_l WHERE username <> ? AND update_date IS NOT NULL ORDER BY update_date DESC";
+    var sql = "SELECT post_id ,username ,post_imgb64 ,filtered_post_description ,ifnull(likes_list, '') likes_list ,ifnull(cnt, 0) AS cnt FROM (select * from ( select c.*, row_number() over (partition by username order by update_date desc ) rn from sys.users_posts c ) src where rn = 1) src LEFT JOIN ( SELECT post_id AS post_id_l ,GROUP_CONCAT(action_user) likes_list ,count(*) AS cnt FROM ( SELECT * FROM sys.users_post_actions WHERE action_type = 'L' ORDER BY insert_date DESC ) src GROUP BY post_id ) detail ON src.post_id = detail.post_id_l WHERE username <> ? AND update_date IS NOT NULL ORDER BY update_date DESC";
 	
 	//controllo sessione attiva
 	con.query(sqlSession,[params.username], function (err, resultSession, fields) {
@@ -66,7 +66,7 @@ function main(params)
 												//costruzione form intermedi per ciascun post dell'utente considerato
 												for(i = 0; i < result.length ; i++)
 												{
-													 imgSrc = "data:image/" + result[i].file_ext + ";base64," + result[i].thumbnail_imgb64.toString()
+													 imgSrc = "data:image/" + result[i].file_ext + ";base64," + result[i].post_imgb64.toString()
 													 pid = result[i].post_id;
 													 description = result[i].filtered_post_description;
 													//console.log(result[i].username, imgSrc)
@@ -118,7 +118,7 @@ function main(params)
 													 resultPage +='<div id="' + pid + '">'
 																+ ' <h4>Ultimo post di ' + profilePage + result[i].username + '">' + result[i].username + '</a></h4>'
 																+ ' <div>'
-																+ '		<img src="' + imgSrc + '" alt="profilepic" width="200" height="200">'
+																+ '		<img src="' + imgSrc + '" alt="profilepic" width="600" height="600">'
 																+ '		 <div> '
 																+ '			   <a href="ADD_LIKE?username=' + params.username +'&pid=' + pid + '&r=2"><img src="' + imLikeButtonHtml + '" class = "spacing" alt="like"  width="20" height="20" /></a>'
 																+ '			   <input type=button value="' + testoLike + '" onClick="showElement(\'likesPost' + pid + '\')" >'
