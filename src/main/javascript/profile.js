@@ -70,6 +70,7 @@ function main(params)
 															+ '		<h1> Ciao ' + params.username +', di seguito il profilo di: <u>' + params.profile +'</u> </h1>'
 														    + '		<h4><a href="ADD_POST?user=' + params.username +'">AGGIUNGI POST</a></h4>'
 															+ '		<h4><a href="USER_GRID?username=' + params.username +'">BACHECA</a></h4>'
+															+ '		<h4><a href="FEED?username=' + params.username +'">IL TUO FEED</a></h4>'
 															+ '		<h4><a href="TIMELINE?username=' + params.username +'">TIMELINE</a></h4>'
 															+ '		<input type=button value="LOGOUT" onClick="window.location.href=\'LOGOUT?username=' + params.username + '\'">'
 															+ '	<div>'
